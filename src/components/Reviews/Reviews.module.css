@@ -1,0 +1,39 @@
+/* .name {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.updated_at {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.emptyReviews {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.reviewsList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.reviewsList_item {
+  padding-left: 15px;
+  padding-bottom: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.reviewsList_item::before {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: #d49a1d;
+  margin-right: 5px;
+} */
+.ReviewsList {
+  margin: 10px 20px;
+}
