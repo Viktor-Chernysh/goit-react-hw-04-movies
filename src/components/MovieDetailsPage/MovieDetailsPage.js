@@ -8,6 +8,7 @@ import { NavLink } from 'react-router-dom';
 import Cast from '../Cast/Cast';
 import Reviews from '../Reviews/Reviews';
 import { Suspense } from 'react';
+import noImage from '../../image/noImage.jpg';
 
 export default function MovieDetailsPage() {
   const { url, path } = useRouteMatch();
@@ -34,22 +35,44 @@ export default function MovieDetailsPage() {
     <>
       {movie && (
         <div>
-          {movie.poster_path ? (
+          {movie.poster_path && (
             <div className={s.ImageWrapper}>
-              <img
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                alt={movie.title}
-                width="300"
-              />
+              {movie.poster_path ? (
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  alt={movie.title}
+                  className={s.MoviesGalleryItemImage}
+                />
+              ) : (
+                <img
+                  src={noImage}
+                  alt={movie.title}
+                  className={s.MoviesGalleryItemImage}
+                />
+              )}
+              <p className={s.MoviesGalleryItemDescription}>{movie.title}</p>
+              <div className={s.AboutMovie}>{movie.overview}</div>
             </div>
-          ) : (
-            <h2>no image</h2>
           )}
         </div>
       )}
 
-      <NavLink to={`${url}/cast`}>Cast</NavLink>
-      <NavLink to={`${url}/reviews`}>Reviews</NavLink>
+      <NavLink
+        to={`${url}/cast`}
+        className={s.Link}
+        activeClassName={s.ActiveLink}
+        movie={movie}
+      >
+        Cast
+      </NavLink>
+      <NavLink
+        to={`${url}/reviews`}
+        className={s.Link}
+        activeClassName={s.ActiveLink}
+      >
+        Reviews
+      </NavLink>
+
       <Suspense
         fallback={
           <Loader

@@ -3,8 +3,9 @@ import { useParams } from 'react-router';
 import { fetchCast } from '../../services/API';
 
 import s from './Cast.module.css';
+import noImage from '../../image/noImage.jpg';
 
-export default function Cast() {
+export default function Cast({ movie }) {
   const { movieId } = useParams();
   const [cast, setCast] = useState([]);
 
@@ -33,7 +34,7 @@ export default function Cast() {
                       />
                     ) : (
                       <img
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsNGGjrfSqqv8UjL18xS4YypbK-q7po_8oVQ&usqp=CAU"
+                        src={noImage}
                         alt={el.name}
                         className={s.ImageGalleryItemImage}
                       />

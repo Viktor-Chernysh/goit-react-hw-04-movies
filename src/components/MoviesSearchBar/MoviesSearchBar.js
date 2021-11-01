@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import s from './MoviesPage.module.css';
+import s from './MoviesSearchBar.module.css';
 toast.configure();
 
-export default function MoviesPage({ onFormSubmit }) {
+export default function MoviesSearchBar({ onFormSubmit }) {
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleChangeQuery = e => {
@@ -26,6 +26,7 @@ export default function MoviesPage({ onFormSubmit }) {
       return;
     }
     onFormSubmit(searchQuery);
+    setSearchQuery('');
   };
 
   return (
