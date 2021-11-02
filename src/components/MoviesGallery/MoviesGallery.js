@@ -1,11 +1,11 @@
 import { NavLink } from 'react-router-dom';
-import { useRouteMatch, useLocation } from 'react-router';
+// import { useRouteMatch, useLocation } from 'react-router';
 
 import s from './MoviesGallery.module.css';
 import noImage from '../../image/noImage.jpg';
 
 export default function MoviesGallery({ movies }) {
-  const { url } = useRouteMatch();
+  // const { url } = useRouteMatch();
   // const location = useLocation();
   return (
     <ul className={s.MoviesGallery}>

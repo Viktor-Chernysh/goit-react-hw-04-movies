@@ -47,9 +47,6 @@ export default function Cast({ movie }) {
           </ul>
         </>
       )}
-      {/* {emptyCast && (
-        <p className={s.EmptyCast}>We don't have any actors for this movie!</p>
-      )} */}
     </>
   );
 }

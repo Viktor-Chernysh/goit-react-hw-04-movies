@@ -5,7 +5,7 @@ import { fetchTrendingMovies } from '../../services/API';
 import Button from '../../components/Button/Button';
 import MoviesGallery from '../../components/MoviesGallery/MoviesGallery';
 
-export default function HomeViews() {
+export default function HomePage() {
   const [page, setPage] = useState(2);
   const [movies, setMovies] = useState(null);
 

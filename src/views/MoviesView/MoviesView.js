@@ -7,6 +7,8 @@ import { fetchMovieBySearch } from '../../services/API';
 import MoviesSearchBar from '../../components/MoviesSearchBar/MoviesSearchBar';
 import Button from '../../components/Button/Button';
 import MoviesGallery from '../../components/MoviesGallery/MoviesGallery';
+import noResults from '../../image/noResults.png';
+import s from './MoviesView.module.css';
 
 export default function MoviesViews() {
   const [movies, setMovies] = useState(null);
@@ -49,16 +51,29 @@ export default function MoviesViews() {
   //     setMovies(res.data.results);
   //   });
   // }, [searchQuery]);
+
   return (
     <>
       <MoviesSearchBar onFormSubmit={handleFormSubmit} />
-      {movies && (
-        <>
-          <MoviesGallery movies={movies} />
-          <Button onClick={onLoadMoreClick} />
-          <ScrollUpButton />
-        </>
-      )}
+      {movies &&
+        (movies.length === 0 ? (
+          <>
+            <img
+              src={noResults}
+              alt="sorry but no results"
+              className={s.NoResults}
+            />
+            <h2 className={s.NoResults}>
+              Извините, нет фильма с названием : "{searchQuery}".
+            </h2>
+          </>
+        ) : (
+          <>
+            <MoviesGallery movies={movies} />
+            <Button onClick={onLoadMoreClick} />
+            <ScrollUpButton />
+          </>
+        ))}
     </>
   );
 }
