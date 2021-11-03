@@ -13,7 +13,7 @@ function fetchTrendingMovies(page = 1) {
 
 function fetchMovieBySearch(searchQuery, page = 1) {
   return axios.get(
-    `/search/movie?query=${searchQuery}&page=${page}&api_key=${API_KEY}`,
+    `/search/movie?query=${searchQuery}&page=${page}&api_key=${API_KEY}&language=ru`,
   );
 }
 function fetchMovieById(id) {

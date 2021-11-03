@@ -1,19 +1,26 @@
 import { Route, Switch } from 'react-router';
-import { lazy } from 'react';
+import { lazy, Suspense } from 'react';
 import Loader from 'react-loader-spinner';
 
 import './App.css';
 import Navigation from './components/Navigation/Navigation';
 import Container from './components/Container/Container';
-// import HomePage from './views/HomePage/HomePage';
-// import MoviesViews from './views/MoviesView/MoviesView';
-import { NotFound } from './views/NotFoundView';
-import MovieDetailsPage from './components/MovieDetailsPage/MovieDetailsPage';
-import { Suspense } from 'react';
 import s from './components/MovieDetailsPage/MovieDetailsPage.module.css';
 
-const HomePage = lazy(() => import('./views/HomePage/HomePage'));
-const MoviesViews = lazy(() => import('./views/MoviesView/MoviesView'));
+const HomePage = lazy(() =>
+  import('./views/HomePage/HomePage' /* webpackChunkName: "home-page" */),
+);
+const MoviesViews = lazy(() =>
+  import('./views/MoviesView/MoviesView' /* webpackChunkName: "movie-views" */),
+);
+const NotFound = lazy(() =>
+  import('./views/NotFoundView' /* webpackChunkName: "not-found" */),
+);
+const MovieDetailsPage = lazy(() =>
+  import(
+    './components/MovieDetailsPage/MovieDetailsPage' /* webpackChunkName: "movie-details-page" */
+  ),
+);
 
 function App() {
   return (

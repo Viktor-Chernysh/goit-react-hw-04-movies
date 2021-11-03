@@ -1,14 +1,17 @@
 import { Route, useParams, useRouteMatch } from 'react-router';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, lazy } from 'react';
 import Loader from 'react-loader-spinner';
 
 import { fetchMovieById } from '../../services/API';
 import s from './MovieDetailsPage.module.css';
 import { NavLink } from 'react-router-dom';
-import Cast from '../Cast/Cast';
-import Reviews from '../Reviews/Reviews';
+// import Cast from '../Cast/Cast';
+// import Reviews from '../Reviews/Reviews';
 import { Suspense } from 'react';
 import noImage from '../../image/noImage.jpg';
+
+const Cast = lazy(() => import('../Cast/Cast'));
+const Reviews = lazy(() => import('../Reviews/Reviews'));
 
 export default function MovieDetailsPage() {
   const { url, path } = useRouteMatch();
@@ -35,6 +38,7 @@ export default function MovieDetailsPage() {
     <>
       {movie && (
         <div>
+          <button type="button">Go back</button>
           {movie.poster_path && (
             <div className={s.ImageWrapper}>
               {movie.poster_path ? (
@@ -42,6 +46,7 @@ export default function MovieDetailsPage() {
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                   alt={movie.title}
                   className={s.MoviesGalleryItemImage}
+                  width="300"
                 />
               ) : (
                 <img

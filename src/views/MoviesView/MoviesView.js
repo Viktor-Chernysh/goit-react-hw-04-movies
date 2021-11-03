@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation, useHistory } from 'react-router';
 import ScrollUpButton from 'react-scroll-up-button';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -7,13 +8,19 @@ import { fetchMovieBySearch } from '../../services/API';
 import MoviesSearchBar from '../../components/MoviesSearchBar/MoviesSearchBar';
 import Button from '../../components/Button/Button';
 import MoviesGallery from '../../components/MoviesGallery/MoviesGallery';
-import noResults from '../../image/noResults.png';
+import noResults from '../../image/noResult.gif';
 import s from './MoviesView.module.css';
 
 export default function MoviesViews() {
   const [movies, setMovies] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [page, setPage] = useState(1);
+  const history = useHistory();
+  const location = useLocation();
+  // console.log(history);
+  // console.log(location);
+  const search = new URLSearchParams(location.search).get('search');
+  console.log(search);
 
   const handleFormSubmit = query => {
     setSearchQuery(query);
@@ -23,7 +30,7 @@ export default function MoviesViews() {
     });
     // setPage(1);
     // setMovies([]);
-    // history.push({ ...location, search: `query=${query}` });
+    history.push({ ...location, search: `search=${query}` });
   };
   const onLoadMoreClick = () => {
     fetchMovieBySearch(searchQuery, page).then(r => {
@@ -43,14 +50,15 @@ export default function MoviesViews() {
       setPage(prev => prev + 1);
     });
   };
-  // useEffect(() => {
-  //   if (searchQuery === '') {
-  //     return;
-  //   }
-  //   fetchMovieBySearch(searchQuery).then(res => {
-  //     setMovies(res.data.results);
-  //   });
-  // }, [searchQuery]);
+  useEffect(() => {
+    if (!search) {
+      return;
+    }
+    fetchMovieBySearch(search).then(res => {
+      setMovies(res.data.results);
+      setPage(2);
+    });
+  }, [search]);
 
   return (
     <>
@@ -64,7 +72,7 @@ export default function MoviesViews() {
               className={s.NoResults}
             />
             <h2 className={s.NoResults}>
-              Извините, нет фильма с названием : "{searchQuery}".
+              Sorry, there is no movie with a title : "{searchQuery}".
             </h2>
           </>
         ) : (
