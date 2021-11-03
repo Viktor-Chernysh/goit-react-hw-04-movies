@@ -1,12 +1,16 @@
-import { Route, useParams, useRouteMatch } from 'react-router';
+import {
+  Route,
+  useParams,
+  useRouteMatch,
+  useHistory,
+  useLocation,
+} from 'react-router';
 import { useEffect, useState, lazy } from 'react';
 import Loader from 'react-loader-spinner';
 
 import { fetchMovieById } from '../../services/API';
 import s from './MovieDetailsPage.module.css';
 import { NavLink } from 'react-router-dom';
-// import Cast from '../Cast/Cast';
-// import Reviews from '../Reviews/Reviews';
 import { Suspense } from 'react';
 import noImage from '../../image/noImage.jpg';
 
@@ -17,6 +21,13 @@ export default function MovieDetailsPage() {
   const { url, path } = useRouteMatch();
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  const history = useHistory();
+  const location = useLocation();
+  // console.log(location.state.from.pathname);
+
+  function handleClick() {
+    history.push(location?.state?.from?.pathname ?? '/');
+  }
 
   useEffect(() => {
     fetchMovieById(movieId).then(setMovie);
@@ -38,7 +49,9 @@ export default function MovieDetailsPage() {
     <>
       {movie && (
         <div>
-          <button type="button">Go back</button>
+          <button type="button" className={s.Button} onClick={handleClick}>
+            Go back
+          </button>
           {movie.poster_path && (
             <div className={s.ImageWrapper}>
               {movie.poster_path ? (

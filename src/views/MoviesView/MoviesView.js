@@ -17,16 +17,14 @@ export default function MoviesViews() {
   const [page, setPage] = useState(1);
   const history = useHistory();
   const location = useLocation();
-  // console.log(history);
-  // console.log(location);
+
   const search = new URLSearchParams(location.search).get('search');
-  console.log(search);
 
   const handleFormSubmit = query => {
     setSearchQuery(query);
     fetchMovieBySearch(query).then(res => {
       setMovies(res.data.results);
-      setPage(2);
+      setPage(prev => prev + 1);
     });
     // setPage(1);
     // setMovies([]);
@@ -56,7 +54,7 @@ export default function MoviesViews() {
     }
     fetchMovieBySearch(search).then(res => {
       setMovies(res.data.results);
-      setPage(2);
+      setPage(prev => prev + 1);
     });
   }, [search]);
 

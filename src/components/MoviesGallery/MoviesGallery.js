@@ -1,20 +1,22 @@
 import { NavLink } from 'react-router-dom';
-// import { useRouteMatch, useLocation } from 'react-router';
+import { useLocation } from 'react-router';
 
 import s from './MoviesGallery.module.css';
 import noImage from '../../image/noImage.jpg';
 
 export default function MoviesGallery({ movies }) {
-  // const { url } = useRouteMatch();
-  // const location = useLocation();
+  const location = useLocation();
+
   return (
     <ul className={s.MoviesGallery}>
       {movies.map(movie => (
         <li key={movie.id} className={s.MoviesGalleryItem}>
           <NavLink
             to={{
-              pathname: `movies/${movie.id}`,
-              // state: { from: location },
+              pathname: `movies/${movie.id}` /*объект location*/,
+              state: {
+                from: location,
+              },
             }}
             className={s.link}
             activeClassName={s.ActiveLink}

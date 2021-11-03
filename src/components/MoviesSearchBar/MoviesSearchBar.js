@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PropTypes from 'prop-types';
 
 import s from './MoviesSearchBar.module.css';
 toast.configure();
@@ -9,11 +10,11 @@ export default function MoviesSearchBar({ onFormSubmit }) {
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleChangeQuery = e => {
-    setSearchQuery(e.target.value.toLowerCase().trim());
+    setSearchQuery(e.target.value.toLowerCase());
   };
   const onSubmit = e => {
     e.preventDefault();
-    if (searchQuery === '') {
+    if (searchQuery.trim() === '') {
       toast.warning('Введите свой запрос!', {
         position: 'top-center',
         autoClose: 3000,
@@ -25,7 +26,7 @@ export default function MoviesSearchBar({ onFormSubmit }) {
       });
       return;
     }
-    onFormSubmit(searchQuery);
+    onFormSubmit(searchQuery.trim());
     setSearchQuery('');
   };
 
@@ -48,3 +49,6 @@ export default function MoviesSearchBar({ onFormSubmit }) {
     </header>
   );
 }
+MoviesSearchBar.propTypes = {
+  onFormSubmit: PropTypes.func,
+};
