@@ -35,12 +35,12 @@
   font-weight: 700;
 }
 
-.link {
+.Link {
   text-decoration: none;
   color: #2a363b;
 }
 
-.activeLink {
+.ActiveLink {
   text-decoration: none;
   color: #2196f3;
 }

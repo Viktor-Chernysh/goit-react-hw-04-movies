@@ -19,7 +19,7 @@ export default function MoviesGallery({ movies }) {
                 from: location,
               },
             }}
-            className={s.link}
+            className={s.Link}
             activeClassName={s.ActiveLink}
           >
             {movie.poster_path ? (

@@ -44,7 +44,7 @@ export default function MovieDetailsPage() {
       />
     );
   }
-  // console.log(location.state);
+  console.log(location);
   return (
     <>
       {movie && (
