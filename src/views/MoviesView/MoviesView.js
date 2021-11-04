@@ -19,6 +19,7 @@ export default function MoviesViews() {
   const location = useLocation();
 
   const search = new URLSearchParams(location.search).get('search');
+  // console.log(search);
 
   const handleFormSubmit = query => {
     setSearchQuery(query);
@@ -26,11 +27,31 @@ export default function MoviesViews() {
       setMovies(res.data.results);
       setPage(prev => prev + 1);
     });
-    // setPage(1);
-    // setMovies([]);
+
     history.push({ ...location, search: `search=${query}` });
   };
+  // console.log(location);
+
   const onLoadMoreClick = () => {
+    if (search) {
+      fetchMovieBySearch(search, page).then(r => {
+        if (r.data.results.length === 0) {
+          toast.warning('Больше фильмов нет =(', {
+            position: 'top-center',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          return;
+        }
+        setMovies(prev => [...prev, ...r.data.results]);
+        setPage(prev => prev + 1);
+      });
+      return;
+    }
     fetchMovieBySearch(searchQuery, page).then(r => {
       if (r.data.results.length === 0) {
         toast.warning('Больше фильмов нет =(', {

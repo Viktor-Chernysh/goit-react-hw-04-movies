@@ -6,6 +6,7 @@ import noImage from '../../image/noImage.jpg';
 
 export default function MoviesGallery({ movies }) {
   const location = useLocation();
+  // const{url,path}=useRouteMatch()
 
   return (
     <ul className={s.MoviesGallery}>

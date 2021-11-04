@@ -23,10 +23,10 @@ export default function MovieDetailsPage() {
   const [movie, setMovie] = useState(null);
   const history = useHistory();
   const location = useLocation();
-  // console.log(location.state.from.pathname);
+  // console.log(location?.state?.from?.pathname);
 
   function handleClick() {
-    history.push(location?.state?.from?.pathname ?? '/');
+    history.push(location?.state?.from ?? '/');
   }
 
   useEffect(() => {
@@ -44,7 +44,7 @@ export default function MovieDetailsPage() {
       />
     );
   }
-
+  // console.log(location.state);
   return (
     <>
       {movie && (
@@ -52,34 +52,35 @@ export default function MovieDetailsPage() {
           <button type="button" className={s.Button} onClick={handleClick}>
             Go back
           </button>
-          {movie.poster_path && (
-            <div className={s.ImageWrapper}>
-              {movie.poster_path ? (
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                  alt={movie.title}
-                  className={s.MoviesGalleryItemImage}
-                  width="300"
-                />
-              ) : (
-                <img
-                  src={noImage}
-                  alt={movie.title}
-                  className={s.MoviesGalleryItemImage}
-                />
-              )}
-              <p className={s.MoviesGalleryItemDescription}>
-                Рейтинг: {movie.vote_average}
-              </p>
-              <p className={s.MoviesGalleryItemDescription}>{movie.title}</p>
-              <div className={s.AboutMovie}>{movie.overview}</div>
-            </div>
-          )}
+          <div className={s.ImageWrapper}>
+            {movie.poster_path ? (
+              <img
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                alt={movie.title}
+                className={s.MoviesGalleryItemImage}
+                width="300"
+              />
+            ) : (
+              <img
+                src={noImage}
+                alt={movie.title}
+                className={s.MoviesGalleryItemImage}
+              />
+            )}
+            <p className={s.MoviesGalleryItemDescription}>
+              Рейтинг: {movie.vote_average}
+            </p>
+            <p className={s.MoviesGalleryItemDescription}>{movie.title}</p>
+            <div className={s.AboutMovie}>{movie.overview}</div>
+          </div>
         </div>
       )}
 
       <NavLink
-        to={`${url}/cast`}
+        to={{
+          pathname: `${url}/cast`,
+          state: { ...location.state },
+        }}
         className={s.Link}
         activeClassName={s.ActiveLink}
         movie={movie}
@@ -87,7 +88,10 @@ export default function MovieDetailsPage() {
         Cast
       </NavLink>
       <NavLink
-        to={`${url}/reviews`}
+        to={{
+          pathname: `${url}/reviews`,
+          state: { ...location.state },
+        }}
         className={s.Link}
         activeClassName={s.ActiveLink}
       >
