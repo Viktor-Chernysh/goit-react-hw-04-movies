@@ -19,13 +19,11 @@ export default function MoviesViews() {
   const location = useLocation();
 
   const search = new URLSearchParams(location.search).get('search');
-  console.log(page);
+  // console.log(page);
 
   const handleFormSubmit = query => {
     setSearchQuery(query);
-    if (query === searchQuery) {
-      setPage(1);
-    }
+    setPage(1);
     fetchMovieBySearch(query).then(res => {
       setMovies(res.data.results);
       setPage(prev => prev + 1);
