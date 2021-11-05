@@ -19,10 +19,13 @@ export default function MoviesViews() {
   const location = useLocation();
 
   const search = new URLSearchParams(location.search).get('search');
-  // console.log(search);
+  console.log(page);
 
   const handleFormSubmit = query => {
     setSearchQuery(query);
+    if (query === searchQuery) {
+      setPage(1);
+    }
     fetchMovieBySearch(query).then(res => {
       setMovies(res.data.results);
       setPage(prev => prev + 1);
@@ -73,11 +76,13 @@ export default function MoviesViews() {
     if (!search) {
       return;
     }
-    fetchMovieBySearch(search).then(res => {
-      setMovies(res.data.results);
-      setPage(prev => prev + 1);
-    });
-  }, [search]);
+    if (searchQuery !== search) {
+      fetchMovieBySearch(search).then(res => {
+        setMovies(res.data.results);
+        setPage(prev => prev + 1);
+      });
+    }
+  }, [search, searchQuery]);
 
   return (
     <>
