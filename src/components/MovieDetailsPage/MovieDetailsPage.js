@@ -70,7 +70,12 @@ export default function MovieDetailsPage() {
             <p className={s.MoviesGalleryItemDescription}>
               Рейтинг: {movie.vote_average}
             </p>
-            <p className={s.MoviesGalleryItemDescription}>{movie.title}</p>
+            <p className={s.MoviesGalleryItemDescription}>
+              Дата выхода: {movie.release_date}
+            </p>
+            <p className={s.MoviesGalleryItemDescription}>
+              {movie.title}({movie.original_title})
+            </p>
             <div className={s.AboutMovie}>{movie.overview}</div>
           </div>
         </div>

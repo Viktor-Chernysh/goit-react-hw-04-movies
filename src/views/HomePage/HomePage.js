@@ -6,9 +6,9 @@ import Button from '../../components/Button/Button';
 import MoviesGallery from '../../components/MoviesGallery/MoviesGallery';
 
 export default function HomePage() {
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(1);
   const [movies, setMovies] = useState(null);
-
+  console.log(page);
   const onLoadMoreClick = () => {
     fetchTrendingMovies(page).then(r => {
       setMovies(prev => [...prev, ...r.data.results]);
@@ -16,7 +16,10 @@ export default function HomePage() {
     });
   };
   useEffect(() => {
-    fetchTrendingMovies().then(res => setMovies(res.data.results));
+    fetchTrendingMovies().then(res => {
+      setMovies(res.data.results);
+      setPage(prev => prev + 1);
+    });
   }, []);
 
   return (
