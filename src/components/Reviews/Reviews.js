@@ -19,7 +19,7 @@ export default function Reviews() {
         <>
           <ul className={s.ReviewsList}>
             {!reviews.length ? (
-              <h2>We don't any reviews for this movie</h2>
+              <h2>We don't have any reviews for this movie</h2>
             ) : (
               reviews.map(author => (
                 <li key={author.id}>
